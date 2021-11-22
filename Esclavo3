@@ -1,0 +1,52 @@
+/* 
+ * CAPITULO III: MODULOS DE COMUNICACIÓN I2C.
+ * CÓDIGO DEBER 3.1:Comunicación I2C.  
+ * OBJETIVO:Encender 4 leds de forma sincronica al momento de presionar cualquier tecla
+ * Nombre: Marlon Ortiz
+ * Fecha: 21/11/2021                      
+ */
+ //////////// ESCLAVO1 /////////
+ #include <Wire.h>;           // Llamar a la libreria I2C
+ char tcl;                    // Variable que identifica el dato ingresado
+ const int led9=8;            // Definición de led9 en pin8
+ const int led10=9;            // Definición de led10 en pin9
+ const int led11=10;           // Definición de led11 en pin10
+ const int led12=11;           // Definición de led 12 en pin 11
+  
+void setup() {
+  Wire.begin(1);              // id esclavo
+  Wire.onReceive(receiveEvent3);
+  Serial.begin(9600);
+  pinMode(led9,OUTPUT);       // pin8 como salida 
+  pinMode(led10,OUTPUT);       // pin9 como salida 
+  pinMode(led11,OUTPUT);       // pin10 como salida 
+  pinMode(led12,OUTPUT);       //pin 11 como salida
+}
+
+void loop() { 
+}
+
+void receiveEvent3(int bytes){
+  while(Wire.available()){          //Byts disponibles
+    tcl=Wire.read();
+    if(tcl=='o')
+    {
+      digitalWrite(led9,HIGH);       //Encender led 9
+      delay(8000);                   //Delay antirebote
+      digitalWrite(led9,LOW);        //Apagar led 9
+      delay(8000);                   //Delay antirebote
+      digitalWrite(led10,HIGH);       //Led 10 se prende
+      delay(8000);                   //Determinación tiempo.
+      digitalWrite(led10,LOW);        //Led 10 se apaga
+      delay(8000);                   //Delay antirebote
+      digitalWrite(led11,HIGH);       //Led 11 se prende
+      delay(8000);                   //Delay antirebote
+      digitalWrite(led11,LOW);        //Led 11 se apaga
+      delay(8000);                    //Delay antirebote
+      digitalWrite(led12,HIGH);       //Led 12 se prende
+      delay(8000);                   //Delay antirebote
+      digitalWrite(led12,LOW);        //Led 12 se apaga
+      delay(8000);                    //Tiempo de apagado
+    }
+}
+}
