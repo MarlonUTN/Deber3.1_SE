@@ -1,0 +1,53 @@
+/* 
+ * CAPITULO III: MODULOS DE COMUNICACIÓN I2C.
+ * CÓDIGO DEBER 3.1:Comunicación I2C.  
+ * OBJETIVO:Encender 4 leds de forma sincronica al momento de presionar cualquier tecla
+ * Nombre: Marlon Ortiz
+ * Fecha: 21/11/2021                      
+ */
+ //////////// ESCLAVO1 /////////
+ #include <Wire.h>;           // LLamado a la libreria I2C
+ char tcl;                    
+ const int led5=8;            // Definicion led5 en pin8
+ const int led6=9;            // Definicion led6 en pin9
+ const int led7=10;           // Definicion led7 en pin10
+ const int led8=11;           // Definicion led8 en pin11
+  
+void setup() {
+  Wire.begin(1);              // id esclavo
+  Wire.onReceive(receiveEvent3);
+  Serial.begin(9600);
+  pinMode(led5,OUTPUT);       // pin8 como salida 
+  pinMode(led6,OUTPUT);       // pin9 como salida 
+  pinMode(led7,OUTPUT);       // pin10 como salida 
+  pinMode(led8,OUTPUT);       // pin11 como salida
+}
+
+void loop() { 
+}
+
+void receiveEvent3(int bytes){
+  while(Wire.available()){          //Byts disponibles
+    tcl=Wire.read();
+    if(tcl=='j')
+    {
+      digitalWrite(led5,HIGH);       //Led 5 se prende
+      delay(8000);                   //Delay antirebote
+      digitalWrite(led5,LOW);        //Led 5 se apaga
+      delay(8000);                   //Delay antirebote
+      digitalWrite(led6,HIGH);       //Led 6 se prende
+      delay(8000);                   //Delay antirebote
+      digitalWrite(led6,LOW);        //Led 6 se apaga
+      delay(8000);                   //Delay antirebote
+      digitalWrite(led7,HIGH);       //Led 6 se prende
+      delay(8000);                   //Delay antirebote
+      digitalWrite(led7,LOW);        //Led 6 se apaga
+      delay(8000);                    //Delay antirebote
+      digitalWrite(led8,HIGH);       //Led 7 se prende
+      delay(8000);                   //Delay antirebote
+      digitalWrite(led8,LOW);        //Led 7 se apaga
+      delay(8000);                    //Delay antirebote
+      
+    }
+}
+}
