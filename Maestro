@@ -1,0 +1,29 @@
+/* 
+ * CAPITULO III: MODULOS DE COMUNICACIÓN I2C.
+ * CÓDIGO DEBER 3.1:Comunicación I2C.  
+ * OBJETIVO:Encender 4 leds de forma sincronica al momento de presionar cualquier tecla
+ * Nombre: Marlon Ortiz
+ * Fecha: 21/11/2021                      
+ */
+ ///////////////////////////////MASTER////////////////////////////////
+ #include <Wire.h>
+ char tcl;                     //Variable para el ongreso de datos.
+void setup() {
+  Wire.begin();
+  Serial.begin(9600);
+  Serial.println("DEBER 3.1");
+  Serial.println("ORTIZ MARLON");
+  Serial.println("Para el esclavo 1 presionar m: ");
+  Serial.println("Para el esclavo 1 presionar j: ");
+  Serial.println("Para el esclavo 1 presionar o: ");
+  }
+
+void loop() {
+  if(Serial.available()>0){    //Condicion de bytes disponibles.
+    tcl=Serial.read();         //Lee o alamecena el dato en la variable
+    Serial.println(tcl);          //Visualización de caracter y salto
+    Wire.beginTransmission(1); //Empieza la transmision.
+    Wire.write(tcl);           //Envio del dato a los esclavos
+    Wire.endTransmission();    //Finaliza la Comunicación.
+  }
+}
